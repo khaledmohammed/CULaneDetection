@@ -32,8 +32,8 @@ labels = pickle.load(open("Y0.p", "rb" ))
 train_images = np.array(train_images)
 labels = np.array(labels)
 
-train_images = train_images[0:400][:][:][:]
-labels = labels[0:400][:][:]
+#train_images = train_images[0:400][:][:][:]
+#labels = labels[0:400][:][:]
 
 # Normalize labels - training images get normalized to start in the network
 labels = labels / 4
@@ -153,7 +153,7 @@ model.trainable = False
 model.compile(optimizer='Adam', loss='mean_squared_error')
 
 # Save model architecture and weights
-model.save('full_CNN_model.h5')
+model.save('Model.h5')
 
 # Show summary of model
 #model.summary()

@@ -1,17 +1,32 @@
-
 import numpy as np
 from keras.models import load_model
-import pickle
+import cv2
+import matplotlib.pyplot as plt
+import os
 
-model = load_model('full_CNN_model.h5')
+currentDir = os.path.dirname(os.path.realpath(__file__))
+model = load_model(os.path.join(currentDir, 'Model.h5'))
 
-X = pickle.load(open("X.p"))
-Y = pickle.load(open("Y.p"))
+XtestImgFile = os.path.join(currentDir, "00000.jpg")
+XtestImg = cv2.imread(XtestImgFile, cv2.IMREAD_COLOR)
 
+XList = np.array([ XtestImg ])
 
-X1 = X[0]
+print(XList.shape)
+Y_hat = model.predict(XList)
 
-Y1_hat = model.predict(X1)
+Y_hat = Y_hat[0]
 
-print("result = ", np.array_equal(Y1_hat, Y[0]))
+for i in range(Y_hat.shape[0]):
+    for j in range(Y_hat.shape[1]):
+        if (Y_hat[i][j][0]>=1):            
+            Y_hat[i][j] = (255, 0, 0)
+            
 
+plt.figure('original image')
+plt.imshow(testImg)
+
+plt.figure('detected lanes')
+plt.imshow(Y_hat)
+
+plt.show()
