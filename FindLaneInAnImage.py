@@ -24,7 +24,7 @@ for i in range(Y_hat.shape[0]):
             
 
 plt.figure('original image')
-plt.imshow(testImg)
+plt.imshow(XtestImg)
 
 plt.figure('detected lanes')
 plt.imshow(Y_hat)
