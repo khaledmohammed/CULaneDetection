@@ -22,15 +22,16 @@ print(Y_hat.shape[0], Y_hat.shape[1])
 for i in range(Y_hat.shape[0]):
     for j in range(Y_hat.shape[1]):
         if (Y_hat[i][j][0]>=1):
-            Y_hat[i][j][0] = 0
-            Y_hat[i][j][1] = 255
-            Y_hat[i][j][2] = 0
+            XtestImg[i][j][0] = 0
+            XtestImg[i][j][1] = 255
+            XtestImg[i][j][2] = 0
             
 
-plt.figure('original image')
-plt.imshow(XtestImg)
+#plt.figure('image')
+#plt.imshow(XtestImg)
 
-plt.figure('detected lanes')
-plt.imshow(Y_hat)
+#plt.show()
 
-plt.show()
+cv2.imshow("image", XtestImg)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
