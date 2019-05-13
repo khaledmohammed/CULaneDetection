@@ -15,12 +15,16 @@ XList = np.array([ XtestImg ])
 print(XList.shape)
 Y_hat = model.predict(XList)
 
-Y_hat = Y_hat[0]
+Y_hat = Y_hat[0] * 4
+
+print(Y_hat.shape[0], Y_hat.shape[1])
 
 for i in range(Y_hat.shape[0]):
     for j in range(Y_hat.shape[1]):
-        if (Y_hat[i][j][0]>=1):            
-            Y_hat[i][j] = (255, 0, 0)
+        if (Y_hat[i][j][0]>=1):
+            Y_hat[i][j][0] = 0
+            Y_hat[i][j][1] = 255
+            Y_hat[i][j][2] = 0
             
 
 plt.figure('original image')
