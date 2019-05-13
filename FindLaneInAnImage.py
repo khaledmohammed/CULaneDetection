@@ -7,7 +7,7 @@ import os
 currentDir = os.path.dirname(os.path.realpath(__file__))
 model = load_model(os.path.join(currentDir, 'Model.h5'))
 
-XtestImgFile = os.path.join(currentDir, "00000.jpg")
+XtestImgFile = os.path.join(currentDir, "01560.jpg")
 XtestImg = cv2.imread(XtestImgFile, cv2.IMREAD_COLOR)
 
 XList = np.array([ XtestImg ])
