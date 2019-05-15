@@ -34,7 +34,7 @@ print('Train set:', X_train.shape)
 print('Test set:', X_val.shape)
 
 # Batch size, epochs and pool size below are all paramaters to fiddle with for optimization
-batch_size = 8
+batch_size = 16
 epochs = 10
 pool_size = (2, 2)
 input_shape = X_train.shape[1:]
@@ -124,13 +124,12 @@ model.add(Conv2DTranspose(3, (3, 3), padding='valid', strides=(1,1), activation 
 
 # Using a generator to help the model use less data
 # Channel shifts help with shadows slightly
-datagen = ImageDataGenerator(channel_shift_range=0.2)
-datagen.fit(X_train)
+#datagen = ImageDataGenerator(channel_shift_range=0.2)
+#datagen.fit(X_train)
 
 # Compiling and training the model
 model.compile(optimizer='Adam', loss='mean_squared_error')
-model.fit_generator(datagen.flow(X_train, y_train, batch_size=batch_size), steps_per_epoch=len(X_train)/batch_size,
-epochs=epochs, verbose=1, validation_data=(X_val, y_val))
+model.fit(x=X_train, y=y_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(X_val, y_val))
 
 # Freeze layers since training is done
 model.trainable = False
