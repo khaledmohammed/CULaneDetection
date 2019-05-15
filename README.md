@@ -1,8 +1,8 @@
 # CULaneDetection
-<<<<<<< HEAD
 
-This reprository is hostin a deep learning neural network implementation of Traffic Lane Detection. We are working on this project as part of Stanford's CS230 course. We will add more details in coming weeks.
 =======
+This reprository is hostin a deep learning neural network implementation of Traffic Lane Detection. We are working on this project as part of Stanford's CS230 course. We will add more details in coming weeks.
+
 Lane detection is one of the key techniques that enables modern assisted and autonomous driving
 Systems to identify lanes on the road.  It provides the accurate location and shape of
 each lane.  Lane detection solutions have been developed for decades.  However, several unique
@@ -11,4 +11,3 @@ lane detection algorithms to be confused by other objects with similar appearanc
 Moreover, the inconsistent number of lanes on a road as well as diverse lane line patterns,
 e.g. solid, broken, single, double, merging, and splitting lines further hampers performance.
 Moreover, instead of focusing on a single-lane detection and adjacent lane-detection problems, However, identifying which lane the vehicle is on remains an inevitable problem.  
->>>>>>> f7a1309dc98d63efc9bdb36ee8c80622ab67b7bf
