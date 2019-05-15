@@ -1,7 +1,7 @@
 # CULaneDetection
 
-=======
-This reprository is hostin a deep learning neural network implementation of Traffic Lane Detection. We are working on this project as part of Stanford's CS230 course. We will add more details in coming weeks.
+
+This reprository is hosting a deep learning neural network implementation of Traffic Lane Detection. We are working on this project as part of Stanford's CS230 course. We will add more details in coming weeks.
 
 Lane detection is one of the key techniques that enables modern assisted and autonomous driving
 Systems to identify lanes on the road.  It provides the accurate location and shape of
