@@ -15,7 +15,7 @@ XList = np.array([ XtestImg ])
 print(XList.shape)
 Y_hat = model.predict(XList)
 
-Y_hat = Y_hat[0] * 4
+Y_hat = Y_hat[0]
 
 print(Y_hat.shape[0], Y_hat.shape[1])
 
