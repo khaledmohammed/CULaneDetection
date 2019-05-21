@@ -3,10 +3,9 @@ from keras.models import Sequential
 from keras.layers import Activation, Dropout, UpSampling2D, ZeroPadding2D
 from keras.layers import Conv2DTranspose, Conv2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
-
+from keras import regularizers
 
 def CreateModel(input_shape):
-    batch_size = 16
     pool_size = (2, 2)
 
     ### Here is the actual neural network ###
