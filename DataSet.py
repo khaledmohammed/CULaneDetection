@@ -33,12 +33,11 @@ def GetPickleDataSet():
 
 def TrainDataGenerator(batch_size, mode):
     X_top_folder = 'D:/cs230-project/CULaneOriginalImage'
-    Y_top_folder = 'D:/cs230-project/CULaneLabels/'
+    Y_top_folder = 'D:/cs230-project/CULaneLabels'
     
     count = 1
-    skipCount = 0
-    X_train = []
-    Y_train = []
+    X_files = []
+    Y_files = []
     for subDir in os.listdir(X_top_folder):
         X_path = os.path.join(X_top_folder, subDir)
         Y_path = os.path.join(Y_top_folder, subDir)
@@ -51,19 +50,35 @@ def TrainDataGenerator(batch_size, mode):
                     Y_img_file = os.path.join(Y_path2, file)
                     Y_img_file = os.path.splitext(Y_img_file)[0] + '.png'
                     if (os.path.isfile(Y_img_file)):
-                        skipCount = skipCount + 1
-                        if mode=="dev" and skipCount % 100 == 0:
-                            continue
-                        imgArrY = cv2.imread(Y_img_file, cv2.IMREAD_COLOR)
-                        imgArrX = cv2.imread(X_img_file, cv2.IMREAD_COLOR)
-                        X_train.append(imgArrX)
-                        Y_train.append(imgArrY)
-                        if count % batch_size == 0:
-#                            print("New batch: ", X_path2, 'Img Cnt: ', count)
-                            yield((np.array(X_train), np.array(Y_train)))
-                            X_train = []
-                            Y_train = []                            
+                        X_files.append(X_img_file)
+                        Y_files.append(Y_img_file)
                         count = count + 1
+
+    
+    print("Available images in dataset:", count)
+    
+    skipCount = 0
+    X_train = []
+    Y_train = []
+    batch_count = 0
+    while True:        
+        #if mode=="dev" and skipCount % 100 == 0:
+        #    continue
+        imgArrY = cv2.imread(Y_files[skipCount], cv2.IMREAD_COLOR)
+        imgArrX = cv2.imread(X_files[skipCount], cv2.IMREAD_COLOR)
+        X_train.append(imgArrX)
+        Y_train.append(imgArrY)
+        if len(X_train) == batch_size:            
+            yield((np.array(X_train), np.array(Y_train)))
+            X_train = []
+            Y_train = []
+            batch_count = batch_count + 1
+                    
+        if batch_count == 30:
+            batch_count = 0
+            print('reset')
+        #skipCount = skipCount + 1
+
                     
     
 
