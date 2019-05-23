@@ -116,3 +116,5 @@ dmypy.json
 *.json
 *.sqlite
 *.p
+*.jpg
+*.html

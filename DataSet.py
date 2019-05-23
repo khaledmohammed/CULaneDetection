@@ -53,9 +53,13 @@ def ScanFolders(dev_set_ratio):
     for subDir in os.listdir(X_top_folder):
         X_path = os.path.join(X_top_folder, subDir)
         Y_path = os.path.join(Y_top_folder, subDir)
+        if not os.path.isdir(X_path):
+                continue
         for subDir2 in os.listdir(X_path):
             X_path2 = os.path.join(X_path, subDir2)
             Y_path2 = os.path.join(Y_path, subDir2)
+            if not os.path.isdir(X_path2):
+                continue
             X_files = []
             Y_files = []
             for file in os.listdir(X_path2):
