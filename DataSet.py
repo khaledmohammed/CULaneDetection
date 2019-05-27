@@ -84,8 +84,7 @@ def ScanFolders(dev_set_ratio):
 
 
 
-def TrainDataGenerator(batch_size, mode):
-        
+def TrainDataGenerator(batch_size, mode):    
     if mode == 'dev':
         X_files = X_dev_files
         Y_files = Y_dev_files
@@ -104,8 +103,12 @@ def TrainDataGenerator(batch_size, mode):
         imgArrX = cv2.imread(X_files[ii], cv2.IMREAD_COLOR)
         X_train.append(imgArrX)
         Y_train.append(imgArrY)
-        if len(X_train) == batch_size:            
+        
+        if len(X_train) == batch_size:        
             yield((np.array(X_train), np.array(Y_train)))
+            del X_train
+            del Y_train
+            gc.collect()
             X_train = []
             Y_train = []
         

@@ -16,7 +16,7 @@ from Model import CreateModel
 matplotlib.use("Agg")
 
 # Batch size, epochs and pool size below are all paramaters to fiddle with for optimization
-batch_size = 8
+batch_size = 4
 epochs = 300
 input_shape = (590, 1640, 3)
 
@@ -28,12 +28,12 @@ optimizer = K.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, 
 model.compile(optimizer=optimizer, loss='mean_squared_error', metrics=["mae", "acc"])
 
 trainGen = DataSet.TrainDataGenerator(batch_size=batch_size, mode='train')
-devGen = DataSet.TrainDataGenerator(batch_size=DataSet.train_set_count, mode='dev')
-validation_data = next(devGen)
+devGen = DataSet.TrainDataGenerator(batch_size=batch_size, mode='dev')
+validation_steps = DataSet.dev_set_count // batch_size
 steps_per_epoch = DataSet.train_set_count // batch_size
 #print('validation_steps=', str(validation_steps), 'steps_per_epoch=', steps_per_epoch)
 history = model.fit_generator(generator=trainGen, steps_per_epoch=steps_per_epoch, epochs=epochs,
-                              verbose=1, validation_data=validation_data) 
+                              verbose=1, validation_data=devGen, validation_steps=validation_steps) 
 
 # plot a graph 
 N = epochs
