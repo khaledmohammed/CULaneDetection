@@ -34,8 +34,8 @@ mydir = os.path.join(os.getcwd(), datetime.datetime.now().strftime('%Y-%m-%d_%H-
 os.makedirs(mydir)
 
 
-#ds = DataSet.TrainDataGenerator(DataSet.dev_set_count, 'dev')
-ds = DataSet.TrainDataGenerator(10, 'dev')
+ds = DataSet.TrainDataGenerator(DataSet.dev_set_count, 'dev')
+#ds = DataSet.TrainDataGenerator(10, 'dev')
 
 devSet = next(ds)
 XList = devSet[0]

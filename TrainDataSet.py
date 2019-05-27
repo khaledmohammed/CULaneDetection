@@ -1,6 +1,4 @@
 import numpy as np
-
-
 import matplotlib
 import matplotlib.pyplot as plt
 
@@ -10,30 +8,32 @@ import keras as K
 import DataSet
 from Model import CreateModel
 
+# TODO
+# 1. increase the # of filters - 8 is too small.
+# 2. try bigger dataset
+
 
 matplotlib.use("Agg")
 
-#(X_train, y_train, X_val, y_val) = DataSet.GetPickleDataSet()
-
 # Batch size, epochs and pool size below are all paramaters to fiddle with for optimization
-batch_size = 16
-epochs = 20
+batch_size = 8
+epochs = 300
 input_shape = (590, 1640, 3)
 
 model = CreateModel(input_shape)
 
 
 # Compiling and training the model
-model.compile(optimizer='Adam', loss='mean_squared_error', metrics=["mae", "acc"])
-#history = model.fit(x=X_train, y=y_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(X_val, y_val))
+optimizer = K.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+model.compile(optimizer=optimizer, loss='mean_squared_error', metrics=["mae", "acc"])
 
 trainGen = DataSet.TrainDataGenerator(batch_size=batch_size, mode='train')
-devGen = DataSet.TrainDataGenerator(batch_size=batch_size, mode='dev')
-validation_steps = DataSet.dev_set_count // batch_size
+devGen = DataSet.TrainDataGenerator(batch_size=DataSet.train_set_count, mode='dev')
+validation_data = next(devGen)
 steps_per_epoch = DataSet.train_set_count // batch_size
-print('validation_steps=', str(validation_steps), 'steps_per_epoch=', steps_per_epoch)
+#print('validation_steps=', str(validation_steps), 'steps_per_epoch=', steps_per_epoch)
 history = model.fit_generator(generator=trainGen, steps_per_epoch=steps_per_epoch, epochs=epochs,
-                              verbose=1, validation_steps = validation_steps, validation_data=devGen) 
+                              verbose=1, validation_data=validation_data) 
 
 # plot a graph 
 N = epochs
@@ -51,7 +51,7 @@ plt.savefig("plot.png")
 
 # Freeze layers since training is done
 model.trainable = False
-model.compile(optimizer='Adam', loss='mean_squared_error')
+model.compile(optimizer=optimizer, loss='mean_squared_error')
 
 # Save model architecture and weights
 model.save('Model.h5')
