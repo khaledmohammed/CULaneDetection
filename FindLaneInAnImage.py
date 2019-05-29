@@ -44,7 +44,7 @@ Y_hat = model.predict(XList)
 
 h = XList[0].shape[0] // 2
 w = XList[0].shape[1] // 2
-hw = ' height=' + str(h) + " width=" + str(w)
+hw = '' #' height=' + str(h) + " width=" + str(w)
 
 htmlfile = os.path.join(mydir, 'index.html')
 out = open(htmlfile, 'w')

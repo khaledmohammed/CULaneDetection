@@ -100,7 +100,9 @@ def TrainDataGenerator(batch_size, mode):
     batch_count = 0
     while True:                
         imgArrY = cv2.imread(Y_files[ii], cv2.IMREAD_COLOR)
+        imgArrY = cv2.resize(imgArrY, (0,0), fx=0.2, fy=0.2) 
         imgArrX = cv2.imread(X_files[ii], cv2.IMREAD_COLOR)
+        imgArrX = cv2.resize(imgArrX, (0,0), fx=0.2, fy=0.2) 
         X_train.append(imgArrX)
         Y_train.append(imgArrY)
         

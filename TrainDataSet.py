@@ -16,9 +16,9 @@ from Model import CreateModel
 matplotlib.use("Agg")
 
 # Batch size, epochs and pool size below are all paramaters to fiddle with for optimization
-batch_size = 4
-epochs = 300
-input_shape = (590, 1640, 3)
+batch_size = 128
+epochs = 130
+input_shape = (590 * 0.2, 1640 * 0.2, 3)
 
 model = CreateModel(input_shape)
 
