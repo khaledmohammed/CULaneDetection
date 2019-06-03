@@ -86,7 +86,7 @@ def CreateModel(input_shape):
     model.add(Conv2DTranspose(64, (3, 3), padding='valid', strides=(1,1), activation = 'relu', name = 'Deconv6'))
 
     # Final layer - only including one channel so 3 filter
-    model.add(Conv2DTranspose(3, (3, 3), padding='valid', strides=(1,1), activation = 'relu', name = 'Final'))
+    model.add(Conv2DTranspose(1, (3, 3), padding='valid', strides=(1,1), activation = 'relu', name = 'Final'))
 
     ### End of network ###
 

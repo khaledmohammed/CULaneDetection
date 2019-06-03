@@ -84,7 +84,7 @@ def ScanFolders(dev_set_ratio):
 
 
 
-def TrainDataGenerator(batch_size, mode):    
+def TrainDataGenerator(batch_size, mode, image_resizing_factor):    
     if mode == 'dev':
         X_files = X_dev_files
         Y_files = Y_dev_files
@@ -99,10 +99,12 @@ def TrainDataGenerator(batch_size, mode):
     Y_train = []
     batch_count = 0
     while True:                
-        imgArrY = cv2.imread(Y_files[ii], cv2.IMREAD_COLOR)
-        imgArrY = cv2.resize(imgArrY, (0,0), fx=0.2, fy=0.2) 
+        imgArrY = cv2.imread(Y_files[ii], cv2.IMREAD_GRAYSCALE)
+        imgArrY = cv2.resize(imgArrY, (0,0), fx=image_resizing_factor, fy=image_resizing_factor)
+        imgArrY = np.clip(imgArrY, 0, 1)
+        imgArrY = imgArrY.reshape(imgArrY.shape[0],imgArrY.shape[1], 1)
         imgArrX = cv2.imread(X_files[ii], cv2.IMREAD_COLOR)
-        imgArrX = cv2.resize(imgArrX, (0,0), fx=0.2, fy=0.2) 
+        imgArrX = cv2.resize(imgArrX, (0,0), fx=image_resizing_factor, fy=image_resizing_factor)
         X_train.append(imgArrX)
         Y_train.append(imgArrY)
         

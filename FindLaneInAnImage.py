@@ -13,7 +13,7 @@ def ApplyLaneDetection(Y_hat, XtestImg):
         for j in range(Y_hat.shape[1]):
             rvalue = int(Y_hat[i][j][0])
             if (rvalue>=1):
-                XtestImg[i][j][rvalue%3] = 255
+                XtestImg[i][j][1] = 255
     
 def SaveInFolder(id, XtestImg, Y, out_dir):
     im = Image.fromarray(XtestImg)
