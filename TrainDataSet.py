@@ -8,6 +8,8 @@ import keras as K
 import keras.backend as KB
 import DataSet
 from Model import CreateModel
+from CustomMetric import f1, recall
+
 
 # TODO
 # 1. increase the # of filters - 8 is too small.
@@ -19,34 +21,16 @@ matplotlib.use("Agg")
 # Batch size, epochs and pool size below are all paramaters to fiddle with for optimization
 image_resizing_factor = 0.2
 batch_size = 32
-epochs = 75
+epochs = 70
 input_shape = (590 * image_resizing_factor, 1640 * image_resizing_factor, 3)
 
 model = CreateModel(input_shape)
 
 model.summary()
 
-def recall(y_true, y_pred):
-    true_positives = KB.sum(KB.round(KB.clip(y_true * y_pred, 0, 1)))
-    possible_positives = KB.sum(KB.round(KB.clip(y_true, 0, 1)))
-    recall = true_positives / (possible_positives + KB.epsilon())
-    return recall
-
-def f1(y_true, y_pred):
-    true_positives = KB.sum(KB.round(KB.clip(y_true * y_pred, 0, 1)))
-    possible_positives = KB.sum(KB.round(KB.clip(y_true, 0, 1)))
-    recall = true_positives / (possible_positives + KB.epsilon())
-#    return recall
-    predicted_positives = KB.sum(KB.clip(y_pred, 0, 1))
-    precision = true_positives / (predicted_positives + KB.epsilon())
-
-#    return precision
-    return 2*((precision*recall)/(precision+recall+KB.epsilon()))
-
-
 # Compiling and training the model
 optimizer = K.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
-model.compile(optimizer=optimizer, loss='mean_squared_error', metrics=['acc', f1])
+model.compile(optimizer=optimizer, loss='mean_squared_error', metrics=['mse', 'acc', recall])
 
 trainGen = DataSet.TrainDataGenerator(batch_size=batch_size, mode='train', image_resizing_factor=image_resizing_factor)
 devGen = DataSet.TrainDataGenerator(batch_size=batch_size, mode='dev', image_resizing_factor=image_resizing_factor)

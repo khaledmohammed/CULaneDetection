@@ -55,7 +55,7 @@ out = open(htmlfile, 'w')
 out.write('<html><body><table>')
 for ii in range(XList.shape[0]):
     tempX = np.copy(XList[ii])
-    print(ii, np.count_nonzero(Y_hat[ii]))
+#    print(ii, np.count_nonzero(Y_hat[ii]))
     ApplyLaneDetection(Y_hat[ii], XList[ii])    
     ApplyLaneDetection(YList[ii], tempX)
     SaveInFolder(ii, XList[ii], tempX, mydir)

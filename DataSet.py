@@ -101,7 +101,7 @@ def TrainDataGenerator(batch_size, mode, image_resizing_factor):
     while True:                
         imgArrY = cv2.imread(Y_files[ii], cv2.IMREAD_GRAYSCALE)
         imgArrY = cv2.resize(imgArrY, (0,0), fx=image_resizing_factor, fy=image_resizing_factor)
-        #imgArrY = np.clip(imgArrY, 0, 1)
+        imgArrY = np.clip(imgArrY, 0, 1)
         imgArrY = imgArrY.reshape(imgArrY.shape[0],imgArrY.shape[1], 1)
         imgArrX = cv2.imread(X_files[ii], cv2.IMREAD_COLOR)
         imgArrX = cv2.resize(imgArrX, (0,0), fx=image_resizing_factor, fy=image_resizing_factor)
