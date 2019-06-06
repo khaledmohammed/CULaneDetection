@@ -46,8 +46,8 @@ def ScanFolders(dev_set_ratio):
     global train_set_count
     global dev_set_count
 
-    X_top_folder = '/home/ubuntu/project/datasets/culane/train/X' #'D:/cs230-project/CULaneOriginalImage'
-    Y_top_folder = '/home/ubuntu/project/datasets/culane/train/Y' #'D:/cs230-project/CULaneLabels'
+    X_top_folder = 'D:/cs230-project/CULaneOriginalImage'
+    Y_top_folder = 'D:/cs230-project/CULaneLabels'
     
     
     for subDir in os.listdir(X_top_folder):
@@ -85,7 +85,7 @@ def ScanFolders(dev_set_ratio):
 
 
 def TrainDataGenerator(batch_size, mode, image_resizing_factor):    
-    if mode == 'dev':
+    if mode == 'dev' or mode == 'test':
         X_files = X_dev_files
         Y_files = Y_dev_files
     else:
@@ -101,10 +101,12 @@ def TrainDataGenerator(batch_size, mode, image_resizing_factor):
     while True:                
         imgArrY = cv2.imread(Y_files[ii], cv2.IMREAD_GRAYSCALE)
         imgArrY = cv2.resize(imgArrY, (0,0), fx=image_resizing_factor, fy=image_resizing_factor)
-        #imgArrY = np.clip(imgArrY, 0, 1)
+        imgArrY = np.clip(imgArrY, 0, 1)
         imgArrY = imgArrY.reshape(imgArrY.shape[0],imgArrY.shape[1], 1)
         imgArrX = cv2.imread(X_files[ii], cv2.IMREAD_COLOR)
-        imgArrX = cv2.resize(imgArrX, (0,0), fx=image_resizing_factor, fy=image_resizing_factor)
+        imgArrX = cv2.resize(imgArrX, (0,0), fx=image_resizing_factor, fy=image_resizing_factor) 
+        if mode != 'test':
+            imgArrX = imgArrX / 255
         X_train.append(imgArrX)
         Y_train.append(imgArrY)
         
