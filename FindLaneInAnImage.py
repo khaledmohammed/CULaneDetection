@@ -60,7 +60,7 @@ for ii in range(XList.shape[0]):
     for jj in range(9):
         f1_scores[jj] = f1_scores[jj] + CustomMetric.compute_f1(YList[ii], Y_hat[ii], (jj+1)/10)
     tempX = np.copy(XList[ii])
-    print(ii, np.count_nonzero(Y_hat[ii]))
+#    print(ii, np.count_nonzero(Y_hat[ii]))
     ApplyLaneDetection(Y_hat[ii], XList[ii])    
     ApplyLaneDetection(YList[ii], tempX)
     SaveInFolder(ii, XList[ii], tempX, mydir)

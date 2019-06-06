@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 # Import necessary items from Keras
 import keras as K
 
-
 import DataSet
 from Model import CreateModel
 import CustomLoss
@@ -15,6 +14,7 @@ matplotlib.use("Agg")
 
 # Batch size, epochs and pool size below are all paramaters to fiddle with for optimization
 image_resizing_factor = 0.2
+
 batch_size = 128 
 epochs = 300
 input_shape = (int(590 * image_resizing_factor), int(1640 * image_resizing_factor), 3)
