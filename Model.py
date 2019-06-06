@@ -10,10 +10,11 @@ def CreateModel(input_shape):
 
     ### Here is the actual neural network ###
     model = Sequential()
-    # Normalizes incoming inputs. First layer needs the input shape to work
+    # Normalizes incoming inputs.  First layer needs the input shape to work
     model.add(BatchNormalization(input_shape=input_shape))
 
-    # Below layers were re-named for easier reading of model summary; this not necessary
+    # Below layers were re-named for easier reading of model summary; this not
+    # necessary
     # Conv Layer 1
     model.add(Conv2D(32, (3, 3), padding='valid', strides=(1,1), activation = 'relu', name = 'Conv1'))
 

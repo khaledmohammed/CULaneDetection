@@ -12,11 +12,12 @@ import CustomMetric
 
 matplotlib.use("Agg")
 
-# Batch size, epochs and pool size below are all paramaters to fiddle with for optimization
+# Batch size, epochs and pool size below are all paramaters to fiddle with for
+# optimization
 image_resizing_factor = 0.2
 
-batch_size = 128 
-epochs = 300
+batch_size = 128
+epochs = 600
 input_shape = (int(590 * image_resizing_factor), int(1640 * image_resizing_factor), 3)
 
 # Create Network Model
@@ -45,7 +46,7 @@ model.compile(optimizer=optimizer, loss=CustomLoss.dice_loss)
 # Save model architecture and weights
 model.save('Model.h5')
 
-# plot a graph 
+# plot a graph
 plt.style.use("ggplot")
 plt.figure()
 plt.plot(np.arange(0, epochs), history.history["loss"], label="train_loss")
@@ -61,5 +62,3 @@ plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
 plt.legend(loc="lower left")
 plt.savefig("plot.png")
-
-
