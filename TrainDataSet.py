@@ -26,7 +26,7 @@ model.summary()
 
 # Compiling and training the model
 optimizer = K.optimizers.Adam(lr=0.0001)
-model.compile(optimizer=optimizer, loss=CustomLoss.dice_loss, metrics=[CustomMetric.f1, 'acc', CustomMetric.recall])
+model.compile(optimizer=optimizer, loss=CustomLoss.dice_loss, metrics=[CustomMetric.f1, 'binary_accuracy'])
 
 # DataSet Generators
 trainGen = DataSet.TrainDataGenerator(batch_size=batch_size, mode='train', image_resizing_factor=image_resizing_factor)
@@ -49,16 +49,26 @@ model.save('Model.h5')
 # plot a graph
 plt.style.use("ggplot")
 plt.figure()
-plt.plot(np.arange(0, epochs), history.history["loss"], label="train_loss")
-plt.plot(np.arange(0, epochs), history.history["val_loss"], label="val_loss")
-plt.plot(np.arange(0, epochs), history.history["recall"], label="recall")
-plt.plot(np.arange(0, epochs), history.history["f1"], label="f1")
-plt.plot(np.arange(0, epochs), history.history["acc"], label="train_acc")
-plt.plot(np.arange(0, epochs), history.history["val_acc"], label="val_acc")
-plt.plot(np.arange(0, epochs), history.history["val_f1"], label="val_f1")
-plt.plot(np.arange(0, epochs), history.history["val_recall"], label="val_recall")
+plt.plot(np.arange(0, epochs), history.history["loss"], label="Dice Loss")
+#plt.plot(np.arange(0, epochs), history.history["recall"], label="recall")
+plt.plot(np.arange(0, epochs), history.history["f1"], label="F1 Score")
+plt.plot(np.arange(0, epochs), history.history["binary_accuracy"], label="Binary Accuracy")
+
+#plt.plot(np.arange(0, epochs), history.history["val_f1"], label="val_f1")
+#plt.plot(np.arange(0, epochs), history.history["val_recall"], label="val_recall")
 plt.title("Training Loss and Accuracy on Dataset")
 plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
 plt.legend(loc="lower left")
 plt.savefig("plot.png")
+
+
+#plt.figure()
+#plt.plot(np.arange(0, epochs), history.history["val_loss"], label="val_loss")
+#plt.plot(np.arange(0, epochs), history.history["val_acc"], label="val_acc")
+#plt.plot(np.arange(0, epochs), history.history["val_f1"], label="val_f1")
+##plt.title("Training Loss and Accuracy on Dataset")
+#plt.xlabel("Epoch #")
+#plt.ylabel("Loss/Accuracy")
+#plt.legend(loc="lower left")
+#plt.savefig("plot.png")

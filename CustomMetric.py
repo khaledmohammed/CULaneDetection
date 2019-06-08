@@ -21,10 +21,14 @@ def compute_f1(y_true, y_pred, threshold):
         offset = 0
     else:
         offset = 0.5 - threshold
-    true_positives = np.sum(np.clip(np.round(offset + np.clip(y_true * y_pred, 0, 1)), 0,1))
-    possible_positives = np.sum(y_true)
+
+    y_pred_f = y_pred.reshape(y_pred.shape[0] * y_pred.shape[1])
+    y_true_f = y_true.reshape(y_pred.shape[0] * y_pred.shape[1])
+    y_pred_1 = np.round(offset + np.clip(y_pred_f, 0, 1))
+    true_positives = np.sum(y_true_f * y_pred_1, axis=-1)
+    possible_positives = np.sum(y_true_f, axis=-1)
     recall = true_positives / (possible_positives + epsilon)
-    predicted_positives = np.sum(np.clip(np.round(offset + np.clip(y_pred, 0, 1)),0,1))
+    predicted_positives = np.sum(y_pred_1, axis=-1)
     precision = true_positives / (predicted_positives + epsilon)
     return (2*((precision*recall)/(precision+recall+epsilon)))
 

@@ -112,7 +112,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-.vs/slnx.sqlite
+.vs/
 *.json
 *.sqlite
 *.p
@@ -120,3 +120,4 @@ dmypy.json
 *.html
 *.png
 *.sqlite
+results/
